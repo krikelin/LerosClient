@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E4140E34-3CB1-4008-B3EB-7088E3CBCDAD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Board</RootNamespace>
+    <AssemblyName>Board</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CefSharp">
+      <HintPath>..\LerosClient\bin\Debug\CefSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="CefSharp.Example">
+      <HintPath>..\LerosClient\bin\Debug\CefSharp.Example.dll</HintPath>
+    </Reference>
+    <Reference Include="CefSharp.WinForms">
+      <HintPath>..\LerosClient\bin\Debug\CefSharp.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="CefSharp.Wpf">
+      <HintPath>..\LerosClient\bin\Debug\CefSharp.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Jint">
+      <HintPath>..\..\..\..\Downloads\Jint - Binaries\Jint.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Boardl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Boardl.designer.cs">
+      <DependentUpon>Boardl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Class1.cs" />
+    <Compile Include="CssParser.cs" />
+    <Compile Include="frmBoard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBoard.designer.cs">
+      <DependentUpon>frmBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IScriptEngine.cs" />
+    <Compile Include="MainForm.cs" />
+    <Compile Include="Mako.cs" />
+    <Compile Include="MakoParser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MakoParser.designer.cs">
+      <DependentUpon>MakoParser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyClass.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rendering\GDI.cs" />
+    <Compile Include="Rendering\IDrawEngine.cs" />
+    <Compile Include="Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Scrollbar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scrollbar.designer.cs">
+      <DependentUpon>Scrollbar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Skin.cs" />
+    <Compile Include="Spofity.cs" />
+    <Compile Include="ViewError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewError.designer.cs">
+      <DependentUpon>ViewError.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Boardl.resx">
+      <DependentUpon>Boardl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBoard.resx">
+      <DependentUpon>frmBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MakoParser.resx">
+      <DependentUpon>MakoParser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scrollbar.resx">
+      <DependentUpon>Scrollbar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewError.resx">
+      <DependentUpon>ViewError.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CefSharp-0.12\avcodec-54.dll" />
+    <Content Include="CefSharp-0.12\avformat-54.dll" />
+    <Content Include="CefSharp-0.12\avutil-51.dll" />
+    <Content Include="CefSharp-0.12\CefSharp.dll" />
+    <Content Include="CefSharp-0.12\CefSharp.Example.dll" />
+    <Content Include="CefSharp-0.12\CefSharp.WinForms.dll" />
+    <Content Include="CefSharp-0.12\CefSharp.WinForms.Example.exe" />
+    <Content Include="CefSharp-0.12\CefSharp.Wpf.dll" />
+    <Content Include="CefSharp-0.12\CefSharp.Wpf.Example.exe" />
+    <Content Include="CefSharp-0.12\icudt.dll" />
+    <Content Include="CefSharp-0.12\libcef.dll" />
+    <Content Include="CefSharp-0.12\libEGL.dll" />
+    <Content Include="CefSharp-0.12\libGLESv2.dll" />
+    <Content Include="speaker_selected.png" />
+    <Content Include="TextFile1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripting\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CefSharp-0.12\chrome.pak" />
+    <None Include="CefSharp-0.12\locales\am.pak" />
+    <None Include="CefSharp-0.12\locales\ar.pak" />
+    <None Include="CefSharp-0.12\locales\bg.pak" />
+    <None Include="CefSharp-0.12\locales\bn.pak" />
+    <None Include="CefSharp-0.12\locales\ca.pak" />
+    <None Include="CefSharp-0.12\locales\cs.pak" />
+    <None Include="CefSharp-0.12\locales\da.pak" />
+    <None Include="CefSharp-0.12\locales\de.pak" />
+    <None Include="CefSharp-0.12\locales\el.pak" />
+    <None Include="CefSharp-0.12\locales\en-GB.pak" />
+    <None Include="CefSharp-0.12\locales\en-US.pak" />
+    <None Include="CefSharp-0.12\locales\es-419.pak" />
+    <None Include="CefSharp-0.12\locales\es.pak" />
+    <None Include="CefSharp-0.12\locales\et.pak" />
+    <None Include="CefSharp-0.12\locales\fa.pak" />
+    <None Include="CefSharp-0.12\locales\fi.pak" />
+    <None Include="CefSharp-0.12\locales\fil.pak" />
+    <None Include="CefSharp-0.12\locales\fr.pak" />
+    <None Include="CefSharp-0.12\locales\gu.pak" />
+    <None Include="CefSharp-0.12\locales\he.pak" />
+    <None Include="CefSharp-0.12\locales\hi.pak" />
+    <None Include="CefSharp-0.12\locales\hr.pak" />
+    <None Include="CefSharp-0.12\locales\hu.pak" />
+    <None Include="CefSharp-0.12\locales\id.pak" />
+    <None Include="CefSharp-0.12\locales\it.pak" />
+    <None Include="CefSharp-0.12\locales\ja.pak" />
+    <None Include="CefSharp-0.12\locales\kn.pak" />
+    <None Include="CefSharp-0.12\locales\ko.pak" />
+    <None Include="CefSharp-0.12\locales\lt.pak" />
+    <None Include="CefSharp-0.12\locales\lv.pak" />
+    <None Include="CefSharp-0.12\locales\ml.pak" />
+    <None Include="CefSharp-0.12\locales\mr.pak" />
+    <None Include="CefSharp-0.12\locales\ms.pak" />
+    <None Include="CefSharp-0.12\locales\nb.pak" />
+    <None Include="CefSharp-0.12\locales\nl.pak" />
+    <None Include="CefSharp-0.12\locales\pl.pak" />
+    <None Include="CefSharp-0.12\locales\pt-BR.pak" />
+    <None Include="CefSharp-0.12\locales\pt-PT.pak" />
+    <None Include="CefSharp-0.12\locales\ro.pak" />
+    <None Include="CefSharp-0.12\locales\ru.pak" />
+    <None Include="CefSharp-0.12\locales\sk.pak" />
+    <None Include="CefSharp-0.12\locales\sl.pak" />
+    <None Include="CefSharp-0.12\locales\sr.pak" />
+    <None Include="CefSharp-0.12\locales\sv.pak" />
+    <None Include="CefSharp-0.12\locales\sw.pak" />
+    <None Include="CefSharp-0.12\locales\ta.pak" />
+    <None Include="CefSharp-0.12\locales\te.pak" />
+    <None Include="CefSharp-0.12\locales\th.pak" />
+    <None Include="CefSharp-0.12\locales\tr.pak" />
+    <None Include="CefSharp-0.12\locales\uk.pak" />
+    <None Include="CefSharp-0.12\locales\vi.pak" />
+    <None Include="CefSharp-0.12\locales\zh-CN.pak" />
+    <None Include="CefSharp-0.12\locales\zh-TW.pak" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
