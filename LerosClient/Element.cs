@@ -374,17 +374,18 @@ namespace LerosClient
             for (int i = 0; i < this.Children.Count; i++)
             {
                 Element child = this.Children[i];
-                child.X = child.Margin.Left + this.Padding.Right + pos;
+                child.X = child.Margin.Left + this.Padding.Left + pos;
                 child.Y = child.Margin.Top + this.Padding.Bottom;
                 
                 child.Height = this.Height - child.Margin.Bottom * 2 - this.Padding.Top * 2;
                 if (child.Flex > 0)
                 {
                     child.Width = flexible_width;
-                    pos += flexible_width + child.X;
+                    pos += flexible_width; ;
                 }
                 else
                 {
+
                     pos += child.Width + child.X;
                 }
                
