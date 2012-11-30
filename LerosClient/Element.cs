@@ -380,20 +380,32 @@ namespace LerosClient
             if(image != null)
                 g.DrawImage(image, 0, 0, this.Width, this.Height);
         }
+        public static Dictionary<String, Image> ImageCollection = new Dictionary<string, Image>();
         public void LoadImage(String url)
         {
             WebClient wc = new WebClient();
-            wc.DownloadDataCompleted += wc_DownloadDataCompleted;
-            wc.DownloadDataAsync(new Uri(url));
+            if (!ImageCollection.ContainsKey(url))
+            {
+
+                wc.DownloadDataCompleted += wc_DownloadDataCompleted;
+                wc.DownloadDataAsync(new Uri(url), url);
+            }
+            else
+            {
+                this.image = ImageCollection[url];
+            }
         }
         public override void PackChildren()
         {
             
         }
+       
         void wc_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
         {
             Image image = Image.FromStream(new MemoryStream(e.Result, false));
             this.image = image;
+            ImageCollection[(String)e.UserState] = image;
+
 #if(false)
             this.Width = this.image.Width;
             this.Height = this.image.Height;

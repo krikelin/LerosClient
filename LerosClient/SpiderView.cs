@@ -18,10 +18,36 @@ namespace LerosClient
     /// </summary>
     public partial class SpiderView : UserControl
     {
+       
+        /// <summary>
+        /// Delegator that deelgates update of view
+        /// </summary>
+        /// <param name="sender">The sender of the object</param>
+        /// <returns></returns>
+        public delegate Object UpdateView(object sender);
+
+        /// <summary>
+        /// Raised when the view has expired and is renewing
+        /// </summary>
+        public event UpdateView ViewUpdating;
         public Dictionary<String, Board> Sections = new Dictionary<string, Board>();
         public Style Stylesheet = new Style();
+        public int RefreshRate
+        {
+            get
+            {
+                return this.timer.Interval;
+            }
+            set
+            {
+                this.timer.Interval = value;
+            }
+        }
+        private System.Windows.Forms.Timer timer;
         public SpiderView()
         {
+
+            this.timer = new Timer();
             InitializeComponent();
             this.tabBar = new TabBar(this);
             this.deck = new Panel();
@@ -34,7 +60,17 @@ namespace LerosClient
             this.tabBar.Dock = DockStyle.Top;
             this.BackColor = Stylesheet.BackColor;
             this.tabBar.TabChange += tabBar_TabChange;
-            
+            this.timer.Tick += timer_Tick;
+            this.timer.Interval = 1000;
+            this.timer.Start();
+        }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            if (this.ViewUpdating != null)
+            {
+                this.Refresh(this.ViewUpdating(this));
+            }
         }
 
         void tabBar_TabChange(object sender, TabBar.TabChangedEventArgs e)
@@ -53,15 +89,32 @@ namespace LerosClient
         }
         public void Refresh(Object obj)
         {
-            this.tabBar.Clear();
             Preprocessor processor = new Preprocessor();
 
             Template template = Template.Parse(this.template);
             String DOM = template.Render(Hash.FromAnonymousObject(obj));
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(DOM);
-            this.LoadNodes(xmlDoc.DocumentElement);
+            if (this.Sections.Count > 0)
+            {
+                this.LoadNodesAgain(xmlDoc.DocumentElement);
+            }
+            else
+            {
+                this.LoadNodes(xmlDoc.DocumentElement);
+            }
         }
+        public void LoadNodesAgain(XmlElement element)
+        {
+            var sections = element.GetElementsByTagName("section");
+            foreach (XmlElement _section in sections)
+            {
+                Board section = this.Sections[_section.GetAttribute("id")];
+                section.Children.Clear();
+                section.LoadNodes(_section);
+            }
+        }
+        
         public void LoadNodes(XmlElement element)
         {
             var sections = element.GetElementsByTagName("section");
