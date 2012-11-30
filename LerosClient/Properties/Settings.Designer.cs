@@ -25,7 +25,7 @@ namespace LerosClient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("8e12ac8db2")]
         public string access_token {
             get {
                 return ((string)(this["access_token"]));

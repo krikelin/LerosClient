@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="access_token" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">8e12ac8db2</Value>
     </Setting>
   </Settings>
 </SettingsFile>

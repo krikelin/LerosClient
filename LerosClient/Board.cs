@@ -88,8 +88,8 @@ namespace LerosClient
 
         void tmrDraw_Tick(object sender, EventArgs e)
         {
-            Graphics g = this.CreateGraphics();
-            Draw(g, new Rectangle(0, 0, Width, Height));
+          //  Graphics g = this.CreateGraphics();
+           // Draw(g, new Rectangle(0, 0, Width, Height));
         }
         private Timer tmrDraw;
 
@@ -100,7 +100,7 @@ namespace LerosClient
 
         void Board_Paint(object sender, PaintEventArgs e)
         {
-            Draw(e.Graphics, e.ClipRectangle);
+            
         }
        
         public void PackChildren()

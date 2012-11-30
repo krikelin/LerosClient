@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.IO;
 using DotLiquid;
-
+using Spider;
 namespace LerosClient
 {
     /// <summary>
@@ -56,7 +56,6 @@ namespace LerosClient
             tabBar.Height = 28;
             this.Controls.Add(deck);
             this.Controls.Add(tabBar);
-            deck.Dock = DockStyle.Fill;
             this.tabBar.Dock = DockStyle.Top;
             this.BackColor = Stylesheet.BackColor;
             this.tabBar.TabChange += tabBar_TabChange;
@@ -128,6 +127,7 @@ namespace LerosClient
                 Sections.Add(tab.ID, childBoard);
                 childBoard.LoadNodes(_section);
                 this.deck.Controls.Add(childBoard);
+                this.deck = DockStyle.Fill;
             }
         }
 

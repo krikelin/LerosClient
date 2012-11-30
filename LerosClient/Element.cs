@@ -318,7 +318,7 @@ namespace LerosClient
         {
             Bitmap c = new Bitmap(this.Width, this.Height);
             Graphics g = Graphics.FromImage(c);
-            HtmlRenderer.Render(g, "<style type=\"text/css\">body{color: " + ColorTranslator.ToHtml(this.ForeColor) + ";}</style> <span color=\"" + ColorTranslator.ToHtml(ForeColor) + "\">" + Text + "</span>", new Point(0, 0), this.Width);
+            HtmlRenderer.Render(g, "<style type=\"text/css\">body{color: " + ColorTranslator.ToHtml(this.ForeColor) + ";}</style> <span font=\"MS Sans Serif\" color=\"" + ColorTranslator.ToHtml(ForeColor) + "\">" + Text + "</span>", new Point(0, 0), this.Width);
             return c;
         }
         /// <summary>

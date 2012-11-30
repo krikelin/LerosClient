@@ -49,7 +49,8 @@ namespace LerosClient
                         fgColor = SpiderView.Stylesheet.ForeColor;
                         graphics.Graphics.FillRectangle(new SolidBrush(SpiderView.Stylesheet.BackColor), new Rectangle(x, 0, tab.Width, this.Height));
                     }
-                    graphics.Graphics.DrawString(tab.Title, new Font("MS Sans Serif", 8), new SolidBrush(fgColor), new Point(x + 15, 2));
+                    graphics.Graphics.DrawString(tab.Title, new Font("MS Sans Serif", 8), new SolidBrush(Color.White), new Point(x + 15, 11));
+                    graphics.Graphics.DrawString(tab.Title, new Font("MS Sans Serif", 8), new SolidBrush(fgColor), new Point(x + 15, 10));
                     x += tab.Width;
                 }
                 graphics.Render();
