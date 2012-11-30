@@ -9,6 +9,7 @@ using System.Xml;
 using System.Reflection;
 using System.Net;
 using System.IO;
+using System.Drawing.Html;
 
 
 namespace LerosClient
@@ -75,6 +76,8 @@ namespace LerosClient
     /// </summary>
     public abstract class Element
     {
+        public Color BackColor = Color.Transparent;
+        public Color ForeColor = Color.Black;
         public Margin Margin = new Margin("0");
         public Padding Padding = new Padding("0");
         public int Flex = 0;
@@ -128,6 +131,45 @@ namespace LerosClient
             
 
         }
+        private Color ParseColorAttribute(String propertyName, String attribute, XmlElement elm)
+        {
+            if (elm.HasAttribute(attribute))
+            {
+                return ParseColor(elm.GetAttribute(attribute));
+            }
+            else
+            {
+                Type type = Stylesheet.GetType();
+                MemberInfo member = type.GetMember(propertyName)[0];
+                if (member.MemberType == System.Reflection.MemberTypes.Property)
+                {
+                    PropertyInfo property = (PropertyInfo)member;
+                    return (Color)property.GetValue(Stylesheet);
+                }
+            }
+            return Color.Transparent;
+        }
+        private Color ParseColor(String value)
+        {
+            if (value.StartsWith("@"))
+            {
+                Type type = Stylesheet.GetType();
+                MemberInfo member = type.GetMember(value.Replace("@", "") + "Color")[0];
+                if (member.MemberType == System.Reflection.MemberTypes.Property)
+                {
+                    PropertyInfo property = (PropertyInfo)member;
+                    return (Color)property.GetValue(Stylesheet);
+                }
+            }
+            else if (value.StartsWith("#"))
+            {
+                
+                
+                  return ColorTranslator.FromHtml(value);
+                
+            }
+            return Stylesheet.BackColor;
+        }
         public String Name { get; set; }
         public Style Stylesheet = new Style();
         private XmlNode node;
@@ -137,6 +179,11 @@ namespace LerosClient
         {
             this.Board = Host;
             this.node = node;
+            this.BackColor = ParseColorAttribute("BackColor", ("bgcolor"), node);
+
+            this.ForeColor = ParseColorAttribute("ForeColor", "color", node);
+            
+            
             if (node.HasAttribute("margin"))
             {
                 this.Margin = new Margin(node.GetAttribute("margin"));
@@ -216,6 +263,10 @@ namespace LerosClient
            foreach(Element elm in this.Children)
            {
                 g.TranslateTransform(elm.X , elm.Y);
+                if (elm.BackColor != null)
+                {
+                    g.FillRectangle(new SolidBrush(elm.BackColor), new Rectangle(elm.X + this.Padding.Left, elm.Y + this.Padding.Top, elm.Width - this.Padding.Left * 2, elm.Height - this.Padding.Top * 2));
+                }
                 elm.Draw(g);
                 g.TranslateTransform(-elm.X, -elm.Y);
            }
@@ -242,24 +293,33 @@ namespace LerosClient
     }
     public class text : Element
     {
+        private String textContent;
         public String Text
         {
             get
             {
-                return this.label.Text;
+                return this.textContent;
+                
             }
             set
             {
-                this.label.Text = value;
+                this.textContent = value;
+                this.bitmap = GenerateBitmap(); 
             }
         }
         
-        private LinkLabel label;
         public text(Board host, XmlElement node)
             : base(host, node)
         {
-            label = new LinkLabel();
             Text = node.InnerText;
+        }
+        private Bitmap bitmap;
+        private Bitmap GenerateBitmap()
+        {
+            Bitmap c = new Bitmap(this.Width, this.Height);
+            Graphics g = Graphics.FromImage(c);
+            HtmlRenderer.Render(g, "<style type=\"text/css\">body{color: " + ColorTranslator.ToHtml(this.ForeColor) + ";}</style> <span color=\"" + ColorTranslator.ToHtml(ForeColor) + "\">" + Text + "</span>", new Point(0, 0), this.Width);
+            return c;
         }
         /// <summary>
         /// Draw
@@ -268,15 +328,18 @@ namespace LerosClient
         public override void Draw(Graphics g)
         {
             base.Draw(g);
-            label.Width = this.Width;
+            if(bitmap != null)
+               g.DrawImage(bitmap, new Point(0, 0));
+            /*label.Width = this.Width;
             label.Height = this.Height;
-            label.BackColor = Stylesheet.BackColor;
-            label.ForeColor = Stylesheet.ForeColor;
+            label.BackColor =this.BackColor;
+            label.ForeColor = this.ForeColor;
             if(this.Width > 0 && this.Height > 0) {
                 Bitmap bitmap = new Bitmap(this.Width, this.Height);
                 label.DrawToBitmap(bitmap, new Rectangle(0, 0, this.Width, this.Height));
                 g.DrawImage(bitmap, 0, 0);
-             }
+             }*/
+            
 
         }
         public void Resize(int newX, int newY)
@@ -369,6 +432,7 @@ namespace LerosClient
                     static_width += elm.Width;
                 }
             }
+            if(count_flex > 0)
             flexible_width = (this.Width - static_width) / count_flex;
 
             for (int i = 0; i < this.Children.Count; i++)
@@ -455,15 +519,48 @@ namespace LerosClient
         public override void PackChildren()
         {
             int pos = 0;
-            int quote = this.Height / this.Children.Count;
+            int quote = this.Width / this.Children.Count;
+            int count_flex = 0;
+            int flexible_height = 0;
+            int static_height = 0;
+            foreach (Element elm in this.Children)
+            {
+                if (elm.Flex > 0)
+                {
+                    count_flex += 1;
+
+                }
+                else
+                {
+                    static_height += elm.Height;
+                }
+            }
+            if(count_flex > 0)
+            flexible_height = (this.Height - static_height) / count_flex;
+
             for (int i = 0; i < this.Children.Count; i++)
             {
                 Element child = this.Children[i];
-                child.X = this.Padding.Left;
-                child.Y = this.Padding.Top;
-                child.Height = quote - this.Padding.Bottom * 2 - child.Margin.Top;
-                child.Width = this.Width - this.Padding.Right * 2 - child.Margin.Left;
-                pos += child.Height;
+                child.Y = child.Margin.Top + this.Padding.Top;
+
+                child.Width = this.Width - child.Margin.Right * 2 - this.Padding.Left * 2;
+                child.Y = pos;
+                if (child.Flex > 0)
+                {
+                    child.Height = flexible_height;
+                    pos += flexible_height; ;
+                }
+                else
+                {
+
+                    pos += child.Height + child.Y;
+                }
+
+              
+
+
+
+                child.PackChildren();
             }
         }
     }

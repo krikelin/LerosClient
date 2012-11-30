@@ -110,16 +110,20 @@ namespace LerosClient
                 {
                     child.Width = this.Width - Padding.Right * 2 - child.Margin.Right * 2 - child.X;
                 }
-                if (max_height > child.Height)
+               /* if (max_height > child.Height)
                     max_height = child.Height;
                 if (left + child.Width > this.Width - this.Padding.Right * 2)
                 {
-                    row += max_height + child.Margin.Bottom *2;
+                    
                 }
                 child.X = left;
-                child.Y = row;
+                child.Y = row;*/
+                
+                child.X = this.Padding.Left;
+                child.Y = this.Padding.Top + row;
                 left += child.Width + child.Padding.Right;
                 child.PackChildren();
+                row += child.Height;
             }
         }
         
@@ -140,6 +144,7 @@ namespace LerosClient
                     }
                 }
             }
+            PackChildren();
         }
         private void Board_Load(object sender, EventArgs e)
         {
