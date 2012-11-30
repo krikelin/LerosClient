@@ -19,7 +19,38 @@ namespace LerosClient
             BackColor = Color.FromArgb(255, 55, 55, 55);
             EntryColor = Color.FromArgb(255, 88, 88, 88);
             Font = new Font("MS Sans Serif", 11);
+            Skin = Properties.Resources.skin;
+
+            // Partialize skin
         }
+        private Bitmap skin;
+        public Bitmap Skin {
+            get{
+                return this.skin;
+            }set{
+                this.skin = value;
+                Slice(skin);
+            }
+        }
+        public void Slice(Bitmap bitmap)
+        {
+            // Get tab bar
+            ForeColor = bitmap.GetPixel(1, 0);
+            BackColor = bitmap.GetPixel(0, 0);
+            AlternateColor = bitmap.GetPixel(3, 0);
+            EntryColor = bitmap.GetPixel(4, 0);
+            Parts.Add("TabBar", sliceBitmap(bitmap, new Rectangle(48, 1, 2, 28)));
+            Parts.Add("TabBarActive", sliceBitmap(bitmap, new Rectangle(0, 1, 42, 28)));
+        }
+        public Bitmap sliceBitmap(Bitmap src, Rectangle region)
+        {
+            Bitmap target = new Bitmap(region.Width, region.Height);
+            Graphics g = Graphics.FromImage(src);
+            Graphics targetGraphics = Graphics.FromImage(target);
+            targetGraphics.DrawImage(src, 0, 0, region, GraphicsUnit.Pixel);
+            return target;
+        }
+
         [XmlElement("forecolor")]
         public Color ForeColor { get; set; }
         public Color EntryColor { get; set; }
@@ -27,5 +58,6 @@ namespace LerosClient
         public Color AlternateColor { get; set; }
         public Font Font { get; set; }
         
+        public Dictionary<String, Image> Parts = new Dictionary<string,Image>();
     }
 }

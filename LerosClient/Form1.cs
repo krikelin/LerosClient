@@ -17,12 +17,16 @@ namespace LerosClient
         {
             InitializeComponent();
         }
-        private Board board = new Board();
+        private SpiderView spiderView;
+        public Style Stylesheet = new Style();
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.Controls.Add(board);
-            board.Dock = DockStyle.Fill;
-            board.LoadFile("testsection.xml");
+            this.spiderView = new SpiderView();
+            //this.board =  new Board(this);
+            this.Controls.Add(spiderView);
+            this.spiderView.Dock = DockStyle.Fill;
+            spiderView.Dock = DockStyle.Fill;
+            spiderView.LoadFile("testsection.xml");
           
 
         }

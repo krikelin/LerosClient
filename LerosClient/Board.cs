@@ -28,36 +28,40 @@ namespace LerosClient
         }
         public delegate void LinkEventHandler(object sender, LinkEventArgs e);
         public event LinkEventHandler LinkClicked;
-        public Style Stylesheet = new Style();
+        public SpiderView SpiderView;
+        public Style Stylesheet;
         public int ScrollX { get; set; }
         public int ScrollY {get;set;}
         public Padding Padding = new Padding("0");
         public List<Element> Children = new List<Element>();
         public String template = "";
-        public void LoadFile(String fileName)
+        
+        public Board(SpiderView spiderView)
         {
-            using (StreamReader sr = new StreamReader(fileName))
-            {
-                template = sr.ReadToEnd();
-            }
-            Refresh(new Object());
-        }
-        public void Refresh(Object obj)
-        {
-            Preprocessor processor = new Preprocessor();
-            
-            Template template = Template.Parse(this.template);
-            String DOM = template.Render(Hash.FromAnonymousObject(obj));
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(DOM);
-            this.LoadNodes(xmlDoc.DocumentElement);
+            this.SpiderView = spiderView;
+            this.Stylesheet = (this.SpiderView).Stylesheet;
+
+            InitializeComponent();
+
+            this.Paint += Board_Paint;
+            this.Resize += Board_Resize;
+            this.ForeColor = Stylesheet.ForeColor;
+            this.BackColor = Stylesheet.BackColor;
+            tmrDraw = new Timer();
+            tmrDraw.Tick += tmrDraw_Tick;
+            tmrDraw.Interval = 100;
+            tmrDraw.Start();
+            this.MouseMove += Board_MouseMove;
         }
         public Board()
         {
             InitializeComponent();
-            this.ForeColor = Stylesheet.ForeColor;
+            
             this.Paint += Board_Paint;
             this.Resize += Board_Resize;
+            this.Stylesheet = ((Form1)this.ParentForm).Stylesheet;
+            this.ForeColor = Stylesheet.ForeColor;
+            this.BackColor = Stylesheet.BackColor;
             tmrDraw = new Timer();
             tmrDraw.Tick += tmrDraw_Tick;
             tmrDraw.Interval = 100;
@@ -178,5 +182,7 @@ namespace LerosClient
         {
             this.Draw(e.Graphics, this.Bounds);
         }
+
+        public Form1 Form { get; set; }
     }
 }

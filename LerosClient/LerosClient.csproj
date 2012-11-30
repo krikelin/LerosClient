@@ -68,6 +68,12 @@
     <Compile Include="Preprocessor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpiderView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SpiderView.Designer.cs">
+      <DependentUpon>SpiderView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Style.cs" />
     <Compile Include="System.Drawing.Html\CssAnonymousBlockBox.cs" />
     <Compile Include="System.Drawing.Html\CssAnonymousBox.cs" />
@@ -100,6 +106,12 @@
     </Compile>
     <Compile Include="System.Drawing.Html\InitialContainer.cs" />
     <Compile Include="System.Drawing.Html\Parser.cs" />
+    <Compile Include="TabBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TabBar.Designer.cs">
+      <DependentUpon>TabBar.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Board.resx">
       <DependentUpon>Board.cs</DependentUpon>
     </EmbeddedResource>
@@ -114,7 +126,14 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SpiderView.resx">
+      <DependentUpon>SpiderView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabBar.resx">
+      <DependentUpon>TabBar.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -133,6 +152,7 @@
     <Content Include="lua51.dll" />
     <Content Include="lua511.dll" />
     <Content Include="LuaInterface.dll" />
+    <None Include="Properties\skin.png" />
     <Content Include="System.Drawing.Html\System.Drawing.Html.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

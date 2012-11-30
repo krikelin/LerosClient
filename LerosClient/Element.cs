@@ -394,8 +394,10 @@ namespace LerosClient
         {
             Image image = Image.FromStream(new MemoryStream(e.Result, false));
             this.image = image;
+#if(false)
             this.Width = this.image.Width;
             this.Height = this.image.Height;
+#endif
         }
     }
     /// <summary>
