@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.IO;
+using DotLiquid;
 
 namespace LerosClient
 {
@@ -31,6 +33,25 @@ namespace LerosClient
         public int ScrollY {get;set;}
         public Padding Padding = new Padding("0");
         public List<Element> Children = new List<Element>();
+        public String template = "";
+        public void LoadFile(String fileName)
+        {
+            using (StreamReader sr = new StreamReader(fileName))
+            {
+                template = sr.ReadToEnd();
+            }
+            Refresh(new Object());
+        }
+        public void Refresh(Object obj)
+        {
+            Preprocessor processor = new Preprocessor();
+            
+            Template template = Template.Parse(this.template);
+            String DOM = template.Render(Hash.FromAnonymousObject(obj));
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(DOM);
+            this.LoadNodes(xmlDoc.DocumentElement);
+        }
         public Board()
         {
             InitializeComponent();

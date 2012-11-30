@@ -22,9 +22,8 @@ namespace LerosClient
         {
             this.Controls.Add(board);
             board.Dock = DockStyle.Fill;
-            XmlDocument xd = new XmlDocument();
-            xd.Load("testsection.xml");
-            board.LoadNodes(xd.DocumentElement);
+            board.LoadFile("testsection.xml");
+          
 
         }
     }
