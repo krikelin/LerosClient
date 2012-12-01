@@ -66,7 +66,8 @@ namespace LerosClient.Models
     [DotLiquid.LiquidType("Time", "Description", "Title")]
     public class Session
     {
-        public List<Activity> activities = new List<Activity>();
+        public Activity[] activities;
+        
         private String time;
         public String Time
         {

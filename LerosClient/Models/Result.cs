@@ -11,8 +11,9 @@ namespace LerosClient.Models
     [DotLiquid.LiquidType("Objects")]
     public class Result : Drop
     {
-        public List<Session> Objects { get; set; }
-      
+        public Session[] objects ;
+        
+       
         
     }
 }

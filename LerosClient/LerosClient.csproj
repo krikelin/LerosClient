@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -38,7 +38,7 @@
     </Reference>
     <Reference Include="LuaInterface, Version=2.0.0.25532, Culture=neutral, PublicKeyToken=1e1fb15b02227b8a, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\LuaInterface.dll</HintPath>
+      <HintPath>..\..\SpiderViewed\SpiderView\bin\Debug\LuaInterface.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -57,6 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Apps\MainApp.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +107,9 @@
     </Compile>
     <Compile Include="System.Drawing.Html\InitialContainer.cs" />
     <Compile Include="System.Drawing.Html\Parser.cs" />
+    <EmbeddedResource Include="Apps\MainApp.resx">
+      <DependentUpon>MainApp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
