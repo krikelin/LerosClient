@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LerosClient", "LerosClient.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpiderView", "..\..\SpiderView\SpiderView\SpiderView.csproj", "{38767D2D-14D8-4744-9A60-779315B279FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "..\ConsoleApplication1\ConsoleApplication1.csproj", "{2CD281ED-989E-451A-BF02-7F817B0D43F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{38767D2D-14D8-4744-9A60-779315B279FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38767D2D-14D8-4744-9A60-779315B279FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38767D2D-14D8-4744-9A60-779315B279FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CD281ED-989E-451A-BF02-7F817B0D43F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CD281ED-989E-451A-BF02-7F817B0D43F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CD281ED-989E-451A-BF02-7F817B0D43F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CD281ED-989E-451A-BF02-7F817B0D43F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
